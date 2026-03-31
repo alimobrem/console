@@ -94,6 +94,19 @@ go mod vendor && go mod tidy # Update Go dependencies
 - Bug fixes: `OCPBUGS-####` (Jira bug number)
 - Base branch: `main`
 
+## OLM Dynamic Plugin Migration
+
+The OLM UI is being migrated from a static plugin to a standalone dynamic plugin.
+
+- **Standalone plugin repo:** [alimobrem/olm-console-plugin](https://github.com/alimobrem/olm-console-plugin)
+- **Shared types package:** `frontend/packages/olm-types/` — canonical source of OLM types, models, and constants
+- **Form widgets:** Moved from OLM to `frontend/packages/console-shared/src/components/dynamic-form/form-widgets/`
+- **OLMv1 components:** Inlined into `frontend/packages/console-shared/src/components/catalog/olmv1/`
+- **OLM/OLMv1 source files:** Now re-export from `@openshift-console/olm-types` (types.ts, models.ts, const.ts, descriptors/types.ts)
+- **Consumer packages:** console-app, console-shared, dev-console, topology, knative-plugin import from `@openshift-console/olm-types` instead of `@console/operator-lifecycle-manager`
+
+When modifying OLM types or models, edit `frontend/packages/olm-types/src/` — the OLM package files are thin re-exports.
+
 ## Common pitfalls
 
 - **Barrel imports:** NEVER import from package index files (e.g., `@console/shared`) in new code, as they can create circular dependencies and slow builds. Import from specific file paths instead.
