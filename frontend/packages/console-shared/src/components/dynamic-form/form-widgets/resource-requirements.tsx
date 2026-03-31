@@ -1,6 +1,8 @@
-import type { FC } from 'react';
+import type { CSSProperties, FC } from 'react';
 import { GridItem } from '@patternfly/react-core';
 import { useTranslation } from 'react-i18next';
+
+const labelStyle: CSSProperties = { fontWeight: 300 };
 
 export const ResourceRequirements: FC<ResourceRequirementsProps> = (props) => {
   const { t } = useTranslation();
@@ -9,11 +11,7 @@ export const ResourceRequirements: FC<ResourceRequirementsProps> = (props) => {
   return (
     <>
       <GridItem span={4}>
-        <label
-          style={{ fontWeight: 300 }}
-          className="pf-v6-u-text-color-subtle"
-          htmlFor={`${path}.cpu`}
-        >
+        <label style={labelStyle} className="pf-v6-u-text-color-subtle" htmlFor={`${path}.cpu`}>
           {t('console-shared~CPU cores')}
         </label>
         <span className="pf-v6-c-form-control">
@@ -28,11 +26,7 @@ export const ResourceRequirements: FC<ResourceRequirementsProps> = (props) => {
         </span>
       </GridItem>
       <GridItem span={4}>
-        <label
-          style={{ fontWeight: 300 }}
-          className="pf-v6-u-text-color-subtle"
-          htmlFor={`${path}.memory`}
-        >
+        <label style={labelStyle} className="pf-v6-u-text-color-subtle" htmlFor={`${path}.memory`}>
           {t('console-shared~Memory')}
         </label>
         <span className="pf-v6-c-form-control">
@@ -48,7 +42,7 @@ export const ResourceRequirements: FC<ResourceRequirementsProps> = (props) => {
       </GridItem>
       <GridItem span={4}>
         <label
-          style={{ fontWeight: 300 }}
+          style={labelStyle}
           className="pf-v6-u-text-color-subtle"
           htmlFor={`${path}.ephemeral-storage`}
         >

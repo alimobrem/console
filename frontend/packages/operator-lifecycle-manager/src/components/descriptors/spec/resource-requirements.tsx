@@ -180,16 +180,6 @@ export type ResourceRequirementsModalProps = {
   close?: () => void;
 };
 
-export type ResourceRequirementsProps = {
-  cpu: string;
-  memory: string;
-  storage: string;
-  onChangeCPU: (value: string) => void;
-  onChangeMemory: (value: string) => void;
-  onChangeStorage: (value: string) => void;
-  path?: string;
-};
-
 export type ResourceRequirementsModalLinkProps = {
   obj: K8sResourceKind;
   type: 'requests' | 'limits';
