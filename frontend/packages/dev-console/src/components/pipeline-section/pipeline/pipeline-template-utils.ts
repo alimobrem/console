@@ -1,3 +1,5 @@
+import type { ClusterServiceVersionKind } from '@openshift-console/olm-types';
+import { ClusterServiceVersionPhase } from '@openshift-console/olm-types';
 import type { FormikValues } from 'formik';
 import * as _ from 'lodash';
 import type { SemVer } from 'semver';
@@ -14,8 +16,6 @@ import {
 } from '@console/internal/models';
 import type { K8sResourceCommon, K8sResourceKind, RouteKind } from '@console/internal/module/k8s';
 import { apiVersionForModel, k8sCreate, k8sUpdate } from '@console/internal/module/k8s';
-import type { ClusterServiceVersionKind } from '@console/operator-lifecycle-manager/src/types';
-import { ClusterServiceVersionPhase } from '@console/operator-lifecycle-manager/src/types';
 import type {
   NameValueFromPair,
   NameValuePair,

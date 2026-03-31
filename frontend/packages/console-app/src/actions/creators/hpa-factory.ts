@@ -1,4 +1,6 @@
 import { useMemo } from 'react';
+import type { ClusterServiceVersionKind } from '@openshift-console/olm-types';
+import { ClusterServiceVersionModel } from '@openshift-console/olm-types';
 import i18next from 'i18next';
 import type { Action } from '@console/dynamic-plugin-sdk';
 import { useOverlay } from '@console/dynamic-plugin-sdk/src/app/modal-support/useOverlay';
@@ -11,8 +13,6 @@ import type {
   HorizontalPodAutoscalerKind,
 } from '@console/internal/module/k8s';
 import { referenceForModel } from '@console/internal/module/k8s';
-import type { ClusterServiceVersionKind } from '@console/operator-lifecycle-manager';
-import { ClusterServiceVersionModel } from '@console/operator-lifecycle-manager';
 import { LazyDeleteHPAModalOverlay } from '@console/shared/src/components/hpa';
 import { isHelmResource } from '@console/shared/src/utils/helm-utils';
 import { doesHpaMatch } from '@console/shared/src/utils/hpa-utils';

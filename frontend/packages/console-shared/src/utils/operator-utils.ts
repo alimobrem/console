@@ -1,6 +1,6 @@
+import type { ClusterServiceVersionKind } from '@openshift-console/olm-types';
 import * as _ from 'lodash';
 import type { K8sResourceKind } from '@console/internal/module/k8s';
-import type { ClusterServiceVersionKind } from '@console/operator-lifecycle-manager/src';
 
 export type OperatorBackedServiceKindMap = {
   [name: string]: ClusterServiceVersionKind;

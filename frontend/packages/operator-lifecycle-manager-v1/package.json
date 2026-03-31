@@ -12,5 +12,8 @@
       "defaultActionsProvider": "src/actions/providers/default-actions-provider.ts",
       "installedSoftwarePage": "src/components/installed-software/InstalledSoftwarePage.tsx"
     }
+  },
+  "dependencies": {
+    "@openshift-console/olm-types": "0.0.0-fixed"
   }
 }

@@ -1,7 +1,7 @@
+import type { ClusterServiceVersionKind } from '@openshift-console/olm-types';
 import type { Model, NodeModel } from '@patternfly/react-topology';
 import { NodeShape } from '@patternfly/react-topology';
 import type { K8sResourceKind } from '@console/internal/module/k8s';
-import type { ClusterServiceVersionKind } from '@console/operator-lifecycle-manager';
 import { getDefaultOperatorIcon, getImageForCSVIcon } from '@console/shared/src/utils/icon-utils';
 import { getOperatorBackedServiceKindMap } from '@console/shared/src/utils/operator-utils';
 import { NODE_HEIGHT, NODE_PADDING, NODE_WIDTH } from '@console/topology/src/const';

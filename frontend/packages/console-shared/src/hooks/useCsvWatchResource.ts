@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
+import type { ClusterServiceVersionKind } from '@openshift-console/olm-types';
+import { ClusterServiceVersionModel } from '@openshift-console/olm-types';
 import { useK8sWatchResource } from '@console/internal/components/utils/k8s-watch-hook';
 import { referenceForModel } from '@console/internal/module/k8s';
-import type { ClusterServiceVersionKind } from '@console/operator-lifecycle-manager';
-import { ClusterServiceVersionModel } from '@console/operator-lifecycle-manager';
 
 type CsvWatchResource = {
   csvData: ClusterServiceVersionKind[];

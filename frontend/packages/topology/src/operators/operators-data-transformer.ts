@@ -1,9 +1,9 @@
+import type { ClusterServiceVersionKind } from '@openshift-console/olm-types';
 import type { Model } from '@patternfly/react-topology/dist/esm/types';
 import * as _ from 'lodash';
 import type { K8sResourceKind } from '@console/internal/module/k8s';
 import { LabelSelector, modelFor, referenceFor } from '@console/internal/module/k8s';
 import { isOperatorBackedKnResource } from '@console/knative-plugin/src/topology/knative-topology-utils';
-import type { ClusterServiceVersionKind } from '@console/operator-lifecycle-manager/src';
 import {
   isOperatorBackedService,
   getOperatorBackedServiceKindMap,

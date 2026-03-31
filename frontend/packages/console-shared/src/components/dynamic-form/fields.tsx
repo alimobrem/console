@@ -22,12 +22,9 @@ import type { ConsoleSelectProps } from '@console/internal/components/utils/cons
 import { ConsoleSelect } from '@console/internal/components/utils/console-select';
 import { LinkifyExternal } from '@console/internal/components/utils/link';
 import { SelectorInput } from '@console/internal/components/utils/selector-input';
-import {
-  NodeAffinity,
-  PodAffinity,
-} from '@console/operator-lifecycle-manager/src/components/descriptors/spec/affinity';
-import { MatchExpressions } from '@console/operator-lifecycle-manager/src/components/descriptors/spec/match-expressions';
-import { ResourceRequirements } from '@console/operator-lifecycle-manager/src/components/descriptors/spec/resource-requirements';
+import { NodeAffinity, PodAffinity } from './form-widgets/affinity';
+import { MatchExpressions } from './form-widgets/match-expressions';
+import { ResourceRequirements } from './form-widgets/resource-requirements';
 import { hasNoFields, useSchemaDescription, useSchemaLabel } from './utils';
 
 const Description = ({ id, description }) =>

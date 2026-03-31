@@ -1,3 +1,4 @@
+import type { Descriptor, SpecCapability } from '@openshift-console/olm-types';
 import * as _ from 'lodash';
 import type { NavigateFunction } from 'react-router';
 import {
@@ -8,10 +9,6 @@ import type { Perspective } from '@console/dynamic-plugin-sdk';
 import { checkAccess } from '@console/internal/components/utils';
 import type { K8sResourceKind, K8sKind } from '@console/internal/module/k8s';
 import { referenceForModel, referenceFor, modelFor } from '@console/internal/module/k8s';
-import type {
-  Descriptor,
-  SpecCapability,
-} from '@console/operator-lifecycle-manager/src/components/descriptors/types';
 import { EditorType } from '@console/shared/src/components/synced-editor/editor-toggle';
 import { UNASSIGNED_APPLICATIONS_KEY } from '@console/shared/src/constants';
 import { safeYAMLToJS } from '@console/shared/src/utils/yaml';

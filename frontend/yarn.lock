@@ -1559,6 +1559,7 @@ __metadata:
     "@console/topology": "npm:0.0.0-fixed"
     "@console/vsphere-plugin": "npm:0.0.0-fixed"
     "@console/webterminal-plugin": "npm:0.0.0-fixed"
+    "@openshift-console/olm-types": "npm:0.0.0-fixed"
   languageName: unknown
   linkType: soft
 
@@ -1585,6 +1586,7 @@ __metadata:
     "@console/plugin-sdk": "npm:0.0.0-fixed"
     "@console/shipwright-plugin": "npm:0.0.0-fixed"
     "@console/topology": "npm:0.0.0-fixed"
+    "@openshift-console/olm-types": "npm:0.0.0-fixed"
   languageName: unknown
   linkType: soft
 
@@ -1644,6 +1646,7 @@ __metadata:
   dependencies:
     "@console/plugin-sdk": "npm:0.0.0-fixed"
     "@console/topology": "npm:0.0.0-fixed"
+    "@openshift-console/olm-types": "npm:0.0.0-fixed"
   languageName: unknown
   linkType: soft
 
@@ -1661,6 +1664,8 @@ __metadata:
 "@console/operator-lifecycle-manager-v1@npm:0.0.0-fixed, @console/operator-lifecycle-manager-v1@workspace:packages/operator-lifecycle-manager-v1":
   version: 0.0.0-use.local
   resolution: "@console/operator-lifecycle-manager-v1@workspace:packages/operator-lifecycle-manager-v1"
+  dependencies:
+    "@openshift-console/olm-types": "npm:0.0.0-fixed"
   languageName: unknown
   linkType: soft
 
@@ -1669,6 +1674,7 @@ __metadata:
   resolution: "@console/operator-lifecycle-manager@workspace:packages/operator-lifecycle-manager"
   dependencies:
     "@console/plugin-sdk": "npm:0.0.0-fixed"
+    "@openshift-console/olm-types": "npm:0.0.0-fixed"
   languageName: unknown
   linkType: soft
 
@@ -1683,6 +1689,8 @@ __metadata:
 "@console/shared@npm:0.0.0-fixed, @console/shared@workspace:packages/console-shared":
   version: 0.0.0-use.local
   resolution: "@console/shared@workspace:packages/console-shared"
+  dependencies:
+    "@openshift-console/olm-types": "npm:0.0.0-fixed"
   languageName: unknown
   linkType: soft
 
@@ -1708,6 +1716,7 @@ __metadata:
     "@console/git-service": "npm:0.0.0-fixed"
     "@console/knative-plugin": "npm:0.0.0-fixed"
     "@console/plugin-sdk": "npm:0.0.0-fixed"
+    "@openshift-console/olm-types": "npm:0.0.0-fixed"
   languageName: unknown
   linkType: soft
 
@@ -3366,6 +3375,14 @@ __metadata:
   checksum: 10c0/088660a663fab84ee43452a3a3490e261413fb8312bd1f7668a79263adb24145cefac1b36749fc4affcdcfb9e527bea91feeeef6a7512dc53e01836134d6e847
   languageName: node
   linkType: hard
+
+"@openshift-console/olm-types@npm:0.0.0-fixed, @openshift-console/olm-types@workspace:packages/olm-types":
+  version: 0.0.0-use.local
+  resolution: "@openshift-console/olm-types@workspace:packages/olm-types"
+  peerDependencies:
+    "@openshift-console/dynamic-plugin-sdk": "*"
+  languageName: unknown
+  linkType: soft
 
 "@openshift/dynamic-plugin-sdk-webpack@npm:^5.1.0":
   version: 5.1.0

@@ -1,3 +1,4 @@
+import type { ClusterServiceVersionKind } from '@openshift-console/olm-types';
 import type { Model } from '@patternfly/react-topology/dist/esm/types';
 import { NodeShape } from '@patternfly/react-topology/dist/esm/types';
 import { getImageForIconClass } from '@console/internal/components/catalog/catalog-item-icon';
@@ -6,7 +7,6 @@ import {
   isOperatorBackedKnResource,
   isOperatorBackedKnSinkService,
 } from '@console/knative-plugin/src/topology/knative-topology-utils';
-import type { ClusterServiceVersionKind } from '@console/operator-lifecycle-manager/src';
 import { getDefaultOperatorIcon, getImageForCSVIcon } from '@console/shared/src/utils/icon-utils';
 import { TYPE_APPLICATION_GROUP } from '../const';
 import { getTopologyNodeItem } from '../data-transforms/transform-utils';

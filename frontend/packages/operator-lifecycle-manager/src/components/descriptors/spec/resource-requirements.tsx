@@ -17,76 +17,13 @@ import type { OverlayComponent } from '@console/dynamic-plugin-sdk/src/app/modal
 import { useOverlay } from '@console/dynamic-plugin-sdk/src/app/modal-support/useOverlay';
 import type { K8sKind, K8sResourceKind } from '@console/internal/module/k8s';
 import { k8sUpdate, referenceFor } from '@console/internal/module/k8s';
+import { ResourceRequirements } from '@console/shared/src/components/dynamic-form/form-widgets/resource-requirements';
 import { ModalFooterWithAlerts } from '@console/shared/src/components/modals/ModalFooterWithAlerts';
 import { useK8sModel } from '@console/shared/src/hooks/useK8sModel';
 import { usePromiseHandler } from '@console/shared/src/hooks/usePromiseHandler';
 
-export const ResourceRequirements: FC<ResourceRequirementsProps> = (props) => {
-  const { t } = useTranslation();
-  const { cpu, memory, storage, onChangeCPU, onChangeMemory, onChangeStorage, path = '' } = props;
-
-  return (
-    <>
-      <GridItem span={4}>
-        <label
-          style={{ fontWeight: 300 }}
-          className="pf-v6-u-text-color-subtle"
-          htmlFor={`${path}.cpu`}
-        >
-          {t('olm~CPU cores')}
-        </label>
-        <span className="pf-v6-c-form-control">
-          <input
-            value={cpu}
-            onChange={(e) => onChangeCPU(e.target.value)}
-            id={`${path}.cpu`}
-            name="cpu"
-            type="text"
-            placeholder="500m"
-          />
-        </span>
-      </GridItem>
-      <GridItem span={4}>
-        <label
-          style={{ fontWeight: 300 }}
-          className="pf-v6-u-text-color-subtle"
-          htmlFor={`${path}.memory`}
-        >
-          {t('olm~Memory')}
-        </label>
-        <span className="pf-v6-c-form-control">
-          <input
-            value={memory}
-            onChange={(e) => onChangeMemory(e.target.value)}
-            id={`${path}.memory`}
-            name="memory"
-            type="text"
-            placeholder="50Mi"
-          />
-        </span>
-      </GridItem>
-      <GridItem span={4}>
-        <label
-          style={{ fontWeight: 300 }}
-          className="pf-v6-u-text-color-subtle"
-          htmlFor={`${path}.ephemeral-storage`}
-        >
-          {t('olm~Storage')}
-        </label>
-        <span className="pf-v6-c-form-control">
-          <input
-            value={storage}
-            onChange={(e) => onChangeStorage(e.target.value)}
-            id={`${path}.ephemeral-storage`}
-            name="ephemeral-storage"
-            type="text"
-            placeholder="50Mi"
-          />
-        </span>
-      </GridItem>
-    </>
-  );
-};
+export { ResourceRequirements };
+export type { ResourceRequirementsProps } from '@console/shared/src/components/dynamic-form/form-widgets/resource-requirements';
 
 export const ResourceRequirementsModal = (props: ResourceRequirementsModalProps) => {
   const { t } = useTranslation();
