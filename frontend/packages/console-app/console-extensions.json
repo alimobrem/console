@@ -730,7 +730,7 @@
       "id": "console.theme",
       "label": "%console-app~Theme%",
       "groupId": "general",
-      "description": "%console-app~Console will appear as per the selected theme.%",
+      "description": "%console-app~Open the menu to set contrast mode and color scheme. Changes apply immediately.%",
       "field": {
         "type": "custom",
         "component": { "$codeRef": "ThemeSelector" }

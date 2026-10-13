@@ -1,14 +1,11 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Divider,
-  HelperText,
-  HelperTextItem,
+  FocusTrap,
   MenuToggle,
-  Popover,
-  PopoverPosition,
+  Popper,
   Skeleton,
-  Title,
   ToggleGroup,
   ToggleGroupItem,
 } from '@patternfly/react-core';
@@ -43,6 +40,9 @@ const ThemeSelector: FC = () => {
   const isOpenShift5 = IS_OPENSHIFT_5;
   const fireTelemetryEvent = useTelemetry();
   const [isOpen, setIsOpen] = useState(false);
+  // Trap focus only once the panel is visible, otherwise it has no tabbable nodes yet
+  const [isTrapActive, setIsTrapActive] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const [colorScheme, setColorScheme, colorSchemeLoaded] = useUserPreference<string>(
     THEME_USER_PREFERENCE_KEY,
     THEME_SYSTEM_DEFAULT,
@@ -94,19 +94,6 @@ const ThemeSelector: FC = () => {
     }
   };
 
-  const getContrastModeDescription = (value: ContrastMode): string => {
-    switch (value) {
-      case 'default':
-        return t('The traditional console appearance.');
-      case 'glass':
-        return t('A modern, visually refreshed console appearance.');
-      case 'contrast':
-        return t('Enhances contrast between interface elements for readability.');
-      default:
-        return t("Matches your operating system's contrast setting.");
-    }
-  };
-
   const colorSchemeLabel = getColorSchemeLabel(selectedColorScheme);
   const contrastModeLabel = getContrastModeLabel(selectedContrastMode);
   const summary = isOpenShift5
@@ -141,50 +128,85 @@ const ThemeSelector: FC = () => {
   }
 
   const panelId = 'console-theme-panel';
-  const contrastDescriptionId = 'console-theme-contrast-description';
   // Land focus on the current selection rather than the first option
   const initialFocusId = isOpenShift5
     ? `#theme-contrast-${selectedContrastMode}`
     : `#theme-color-${selectedColorScheme}`;
+  const isToggle = (target: EventTarget | null) =>
+    target instanceof Node && !!toggleRef.current?.contains(target);
 
   return (
-    <Popover
-      aria-label={t('Theme')}
-      bodyContent={
-        <div className="co-theme-selector__content" data-test="theme-selector-panel" id={panelId}>
+    <Popper
+      isVisible={isOpen}
+      onHidden={() => setIsTrapActive(false)}
+      onShown={() => setIsTrapActive(true)}
+      placement="bottom-start"
+      width="trigger"
+      trigger={
+        <MenuToggle
+          aria-controls={panelId}
+          aria-haspopup="dialog"
+          aria-label={t('Theme: {{summary}}', { summary })}
+          data-test="theme-selector-toggle"
+          id="console.theme"
+          isExpanded={isOpen}
+          isFullWidth
+          onClick={() => setIsOpen(!isOpen)}
+          ref={toggleRef}
+        >
+          {summary}
+        </MenuToggle>
+      }
+      popper={
+        <FocusTrap
+          active={isOpen && isTrapActive}
+          aria-label={t('Theme')}
+          className="co-theme-selector"
+          data-test="theme-selector-panel"
+          focusTrapOptions={{
+            // The toggle handles its own clicks so it can close the panel
+            allowOutsideClick: (event) => isToggle(event.target),
+            clickOutsideDeactivates: (event) => !isToggle(event.target),
+            initialFocus: initialFocusId,
+            onDeactivate: () => setIsOpen(false),
+            returnFocusOnDeactivate: true,
+            // Visibility is already guaranteed by onShown; matches PatternFly Popover
+            tabbableOptions: { displayCheck: 'none' },
+          }}
+          id={panelId}
+          role="dialog"
+        >
           {isOpenShift5 && (
-            <div className="co-theme-selector__section" data-test="console.theme/contrast field">
-              <Title headingLevel="h3" size="md">
-                {t('Contrast mode')}
-              </Title>
-              <ToggleGroup
-                aria-describedby={contrastDescriptionId}
-                aria-label={t('Contrast mode')}
-                className="co-theme-selector__toggle-group"
-                isCompact
-              >
-                {CONTRAST_MODES.map((value) => (
-                  <ToggleGroupItem
-                    buttonId={`theme-contrast-${value}`}
-                    isSelected={selectedContrastMode === value}
-                    key={value}
-                    onChange={(_event, selected) => selected && selectContrastMode(value)}
-                    text={getContrastModeLabel(value)}
-                  />
-                ))}
-              </ToggleGroup>
-              <HelperText id={contrastDescriptionId}>
-                <HelperTextItem>{getContrastModeDescription(selectedContrastMode)}</HelperTextItem>
-              </HelperText>
-            </div>
+            <>
+              <div className="co-theme-selector__section" data-test="console.theme/contrast field">
+                <h3 className="co-theme-selector__label" id="console-theme-contrast-label">
+                  {t('Contrast mode')}
+                </h3>
+                <ToggleGroup
+                  aria-labelledby="console-theme-contrast-label"
+                  className="co-theme-selector__toggle-group"
+                  isCompact
+                >
+                  {CONTRAST_MODES.map((value) => (
+                    <ToggleGroupItem
+                      buttonId={`theme-contrast-${value}`}
+                      isSelected={selectedContrastMode === value}
+                      key={value}
+                      onChange={(_event, selected) => selected && selectContrastMode(value)}
+                      text={getContrastModeLabel(value)}
+                    />
+                  ))}
+                </ToggleGroup>
+              </div>
+              <Divider className="co-theme-selector__divider" />
+            </>
           )}
-          {isOpenShift5 && <Divider />}
           <div className="co-theme-selector__section" data-test="console.theme/color-scheme field">
-            <Title headingLevel="h3" size="md">
+            <h3 className="co-theme-selector__label" id="console-theme-color-label">
               {t('Color scheme')}
-            </Title>
+            </h3>
             <ToggleGroup
-              aria-label={t('Color scheme')}
+              aria-labelledby="console-theme-color-label"
               className="co-theme-selector__toggle-group"
               isCompact
             >
@@ -199,34 +221,9 @@ const ThemeSelector: FC = () => {
               ))}
             </ToggleGroup>
           </div>
-        </div>
+        </FocusTrap>
       }
-      className="co-theme-selector__popover"
-      elementToFocus={initialFocusId}
-      hasNoPadding
-      id="console-theme"
-      maxWidth="calc(100vw - (2 * var(--pf-t--global--spacer--md)))"
-      minWidth="trigger"
-      onHide={() => setIsOpen(false)}
-      onShow={() => setIsOpen(true)}
-      position={PopoverPosition.bottomStart}
-      showClose={false}
-      withFocusTrap
-    >
-      <MenuToggle
-        aria-controls={panelId}
-        aria-expanded={isOpen}
-        aria-haspopup="dialog"
-        aria-label={t('Theme: {{summary}}', { summary })}
-        className="co-theme-selector__toggle"
-        data-test="theme-selector-toggle"
-        id="console.theme"
-        isExpanded={isOpen}
-        isFullWidth
-      >
-        {summary}
-      </MenuToggle>
-    </Popover>
+    />
   );
 };
 

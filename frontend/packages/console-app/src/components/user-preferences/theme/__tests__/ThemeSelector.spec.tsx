@@ -311,20 +311,6 @@ describe('ThemeSelector', () => {
     );
   });
 
-  it.each([
-    ['default', 'The traditional console appearance.'],
-    ['glass', 'A modern, visually refreshed console appearance.'],
-    ['contrast', 'Enhances contrast between interface elements for readability.'],
-    ['systemDefault', "Matches your operating system's contrast setting."],
-  ])('should describe the selected %s contrast mode', async (value, description) => {
-    const user = userEvent.setup();
-    preferences['console.theme/contrast'] = value;
-    render(<ThemeSelector />);
-    await user.click(screen.getByRole('button', { name: /^Theme: / }));
-
-    expect(getGroup('Contrast mode')).toHaveAccessibleDescription(description);
-  });
-
   it('should normalize invalid visible preferences without rewriting hidden contrast', () => {
     preferences['console.theme'] = 'invalid-color';
     preferences['console.theme/contrast'] = 'invalid-contrast';

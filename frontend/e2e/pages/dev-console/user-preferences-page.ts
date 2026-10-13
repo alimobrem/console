@@ -37,7 +37,8 @@ export class UserPreferencesPage extends BasePage {
   }
 
   getThemeDialog(): Locator {
-    return this.page.getByRole('dialog').filter({ has: this.getThemePanel() });
+    // The panel itself carries role="dialog"; match on it so pseudolocalized names still resolve
+    return this.page.getByRole('dialog').and(this.getThemePanel());
   }
 
   getThemeHeadings(): Locator {
